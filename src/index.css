@@ -1,5 +1,46 @@
+@import '../node_modules/materialize-css/dist/css/materialize.css';
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: dodgerblue;
+}
+
+.title{
+  text-transform: uppercase;
+  font-weight: 100;
+  margin-left: 50px;
+  letter-spacing: 6px;
+}
+
+.boardContainer{
+  max-width: 1400px;
+  background-color: white;
+  margin: 5px auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.oceanBoard{
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  margin: 20px;
+  border: 2px solid grey;
+  flex-wrap: wrap;
+  padding: 8px 0 0 8px;
+  background-color: black;
+}
+
+.oceanSquare{
+  background-color: white;
+  display: inline-block;
+  width: 40px;
+  padding-top: 38px;
+  border: 1px solid grey;
+  margin: -4px -1px;
 }

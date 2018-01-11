@@ -8,6 +8,15 @@ body {
   background-color: dodgerblue;
 }
 
+h3{
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 200;
+  margin-bottom: 5px;
+}
+
 .title{
   text-transform: uppercase;
   font-weight: 100;
@@ -22,17 +31,19 @@ body {
   text-align: center;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
+  min-height: 90vh;
 }
 
 .oceanBoard{
   display: flex;
   flex-direction: row;
   width: 400px;
-  margin: 20px;
+  margin: 0 20px 20px 20px;
   border: 2px solid grey;
   flex-wrap: wrap;
-  padding: 8px 0 0 8px;
+  padding: 12px 0 4px 8px;
   background-color: black;
 }
 
@@ -43,4 +54,28 @@ body {
   padding-top: 38px;
   border: 1px solid grey;
   margin: -4px -1px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+
+.oceanSquare:hover{
+  background-color: #afd3e2;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+
+.pickerContainer{
+  width: 300px;
+  margin: 50px 0;
+}
+
+
+.pickerRow p{
+
 }

@@ -65,9 +65,10 @@ export default class ShipPickerComponent extends Component {
                         <div key={index}>
                             <button
                                 className={`row btn ${boat.available ?
-                                    boat.name === this.state.selectedShipName ? 'indigo' : 'blue'
+                                    boat.name === this.state.name ? 'indigo' : 'blue'
                                     :
                                     'disabled'}`}
+                                style={{width: '300px'}}
                                 onClick={() => this.handleClickShip(boat.name, boat.size)}
                             >
                                 <div className="col s5" style={{textAlign: "left"}}>

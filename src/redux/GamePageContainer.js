@@ -12,7 +12,8 @@ function mapDispatchToProps(dispatch){
         startGame: () => dispatch({type: "START_GAME"}),
         selectShip: (data) => dispatch({type: "SELECT_SHIP", data}),
         hover: (id) => dispatch({type: "HOVER", id}),
-        offHover: (id) => dispatch({type: "OFF_HOVER", id})
+        offHover: (id) => dispatch({type: "OFF_HOVER", id}),
+        assign: (id) => dispatch({type: "ASSIGN", id})
     }
 }
 

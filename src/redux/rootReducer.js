@@ -1,25 +1,32 @@
-export default function rootReducer(
-    currentState = {
-        stage: 'start',
-        selectedShip: {},
-        player1Ships: [
-            {name: 'Carrier', size: 5, imgURL: 'images/001-carrier.png', available: true, hits: 0},
-            {name: 'Battleship', size: 4, imgURL: 'images/002-battleship.png', available: true, hits: 0},
-            {name: 'Cruiser', size: 3, imgURL: 'images/003-cruiser.png', available: true, hits: 0},
-            {name: 'Sub', size: 3, imgURL: 'images/004-submarine.png', available: true, hits: 0},
-            {name: 'Destroyer', size: 2, imgURL: 'images/005-destroyer.png', available: true, hits: 0}
-        ],
-        player2Ships: [
-            {name: 'Carrier', size: 5, imgURL: 'images/001-carrier.png', available: true, hits: 0},
-            {name: 'Battleship', size: 4, imgURL: 'images/002-battleship.png', available: true, hits: 0},
-            {name: 'Cruiser', size: 3, imgURL: 'images/003-cruiser.png', available: true, hits: 0},
-            {name: 'Sub', size: 3, imgURL: 'images/004-submarine.png', available: true, hits: 0},
-            {name: 'Destroyer', size: 2, imgURL: 'images/005-destroyer.png', available: true, hits: 0}
-        ]
-    }, action) {
+function removeShipFromList(currentState){
+    currentState.activePlayerId === 1
+        ?
+        currentState.player1Ships.find(ship => ship.name === currentState.selectedShip.name).available = false
+        :
+        currentState.player2Ships.find(ship => ship.name === currentState.selectedShip.name).available = false
+}
+
+export default function rootReducer(currentState = {
+    stage: 'start',
+    selectedShip: {},
+    player1Ships: [
+        {name: 'Carrier', size: 5, imgURL: 'images/001-carrier.png', available: true, hits: 0},
+        {name: 'Battleship', size: 4, imgURL: 'images/002-battleship.png', available: true, hits: 0},
+        {name: 'Cruiser', size: 3, imgURL: 'images/003-cruiser.png', available: true, hits: 0},
+        {name: 'Sub', size: 3, imgURL: 'images/004-submarine.png', available: true, hits: 0},
+        {name: 'Destroyer', size: 2, imgURL: 'images/005-destroyer.png', available: true, hits: 0}
+    ],
+    player2Ships: [
+        {name: 'Carrier', size: 5, imgURL: 'images/001-carrier.png', available: true, hits: 0},
+        {name: 'Battleship', size: 4, imgURL: 'images/002-battleship.png', available: true, hits: 0},
+        {name: 'Cruiser', size: 3, imgURL: 'images/003-cruiser.png', available: true, hits: 0},
+        {name: 'Sub', size: 3, imgURL: 'images/004-submarine.png', available: true, hits: 0},
+        {name: 'Destroyer', size: 2, imgURL: 'images/005-destroyer.png', available: true, hits: 0}
+    ]
+}, action) {
     switch (action.type) {
         case "START_GAME":
-            return{
+            return {
                 ...currentState,
                 stage: 'setup',
                 activePlayerId: Math.ceil(Math.random() * 2)
@@ -33,9 +40,9 @@ export default function rootReducer(
                 ...currentState,
                 playerTwoBoard: action.newBoard
             };
-            else return{...currentState}
+            else return {...currentState}
         case "SELECT_SHIP":
-            return{
+            return {
                 ...currentState,
                 selectedShip: {
                     name: action.data.selectedShipName,
@@ -47,47 +54,89 @@ export default function rootReducer(
             let boardOfInterest = currentState.activePlayerId === 1
                 ? currentState.playerOneBoard
                 : currentState.playerTwoBoard;
-            let newBoard = [... boardOfInterest];
-            if(currentState.selectedShip.horizontal) {
-                if(action.id % 10 + currentState.selectedShip.size > 11 || action.id % 10 === 0) {
+            let newBoard = [...boardOfInterest];
+            if (currentState.selectedShip.horizontal) {
+                if (action.id % 10 + currentState.selectedShip.size > 11 || action.id % 10 === 0) {
                     return currentState
                 }
-                for(let i = 0; i < currentState.selectedShip.size; i++)
-                newBoard.find(square => square.id === action.id + i).color = 'blue';
+                for (let i = 0; i < currentState.selectedShip.size; i++) {
+                    let squareToColorH = newBoard.find(square => square.id === action.id + i)
+                    if (squareToColorH.contents === 'empty') squareToColorH.color = 'lightblue';
+                }
             }
-            else{
-                if(action.id + (10 * currentState.selectedShip.size) > 110) {
+            else {
+                if (action.id + (10 * currentState.selectedShip.size) > 110) {
                     return currentState
                 }
-                for(let i = 0; i < currentState.selectedShip.size; i++)
-                    newBoard.find(square => square.id === action.id + (i * 10)).color = 'blue';
+                for (let i = 0; i < currentState.selectedShip.size; i++) {
+                    let squareToColorV = newBoard.find(square => square.id === action.id + (i * 10))
+                    if (squareToColorV.contents === 'empty') squareToColorV.color = 'lightblue';
+                }
             }
-        return {
-            ...currentState,
-            boardOfInterest: newBoard
-        }
+            return {
+                ...currentState,
+                boardOfInterest: newBoard
+            }
         case "OFF_HOVER":
             let previousBoardOfInterest = currentState.activePlayerId === 1
                 ? currentState.playerOneBoard
                 : currentState.playerTwoBoard;
-            let cleanedBoard = [... previousBoardOfInterest];
-            if(currentState.selectedShip.horizontal) {
+            let cleanedBoard = [...previousBoardOfInterest];
+            if (currentState.selectedShip.horizontal) {
                 if (action.id % 10 + currentState.selectedShip.size > 11 || action.id % 10 === 0) {
                     return currentState
                 }
-                for(let i = 0; i < currentState.selectedShip.size; i++)
-                    previousBoardOfInterest.find(square => square.id === action.id + i).color = 'white';
-            }else{
-                if(action.id + (10 * currentState.selectedShip.size) > 110) {
+                for (let i = 0; i < currentState.selectedShip.size; i++) {
+                    let squareToErase = previousBoardOfInterest.find(square => square.id === action.id + i)
+                    if (squareToErase.contents === 'empty') squareToErase.color = 'white';
+                }
+            } else {
+                if (action.id + (10 * currentState.selectedShip.size) > 110) {
                     return currentState
                 }
-                for(let i = 0; i < currentState.selectedShip.size; i++)
-                    cleanedBoard.find(square => square.id === action.id + (i * 10)).color = 'white';
+                for (let i = 0; i < currentState.selectedShip.size; i++) {
+                    let thisSquare = cleanedBoard.find(square => square.id === action.id + (i * 10))
+                    if (thisSquare.contents === 'empty') thisSquare.color = 'white';
+                }
             }
             return {
                 ...currentState,
                 previousBoardOfInterest: cleanedBoard
+            };
+        case "ASSIGN":
+            let boardOfAssignment = currentState.activePlayerId === 1
+                ? currentState.playerOneBoard
+                : currentState.playerTwoBoard;
+            let filledBoard = [...boardOfAssignment];
+            if (currentState.selectedShip.horizontal) {
+                if (action.id % 10 + currentState.selectedShip.size > 11 || action.id % 10 === 0) {
+                    return currentState
+                }
+                for (let i = 0; i < currentState.selectedShip.size; i++) {
+                    let assignedSquareH = filledBoard.find(square => square.id === action.id + i)
+                    assignedSquareH.contents = currentState.selectedShip.name;
+                    assignedSquareH.color = 'darkgrey';
+                    removeShipFromList(currentState)
+                }
             }
+            else {
+                if (action.id + (10 * currentState.selectedShip.size) > 110) {
+                    return currentState
+                }
+                for (let i = 0; i < currentState.selectedShip.size; i++) {
+                    let assignedSquareH = filledBoard.find(square => square.id === action.id + (i * 10))
+                    assignedSquareH.contents = currentState.selectedShip.name;
+                    assignedSquareH.color = 'darkgrey';
+                    removeShipFromList(currentState)
+                }
+            }
+            return {
+                ...currentState,
+                boardOfAssignment: filledBoard,
+                selectedShip: {}
+            };
+
+
         default:
             return currentState
     }

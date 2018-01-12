@@ -34,6 +34,8 @@ export default class OceanBoardComponent extends Component {
                             hover={this.props.hover}
                             offHover={this.props.offHover}
                             activePlayerId={this.props.activePlayerId}
+                            stage={this.props.stage}
+                            assign={this.props.assign}
                         />)})
                         :
                         null}

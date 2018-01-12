@@ -3,7 +3,6 @@ import GameLayoutComponent from './GameLayoutComponent';
 import OceanBoardComponent from './OceanBoardComponent';
 
 export default function GamePageComponent(props) {
-    // console.log('>>> ', props);
     return (
         <GameLayoutComponent
             stage={props.stage}
@@ -20,7 +19,9 @@ export default function GamePageComponent(props) {
                 playerBoard={props.playerOneBoard}
                 hover={props.hover}
                 offHover={props.offHover}
+                assign={props.assign}
                 activePlayerId={props.activePlayerId}
+                stage={props.stage}
             />
             <OceanBoardComponent
                 playerId={2}
@@ -28,7 +29,9 @@ export default function GamePageComponent(props) {
                 playerBoard={props.playerTwoBoard}
                 hover={props.hover}
                 offHover={props.offHover}
+                assign={props.assign}
                 activePlayerId={props.activePlayerId}
+                stage={props.stage}
             />
         </GameLayoutComponent>
     )

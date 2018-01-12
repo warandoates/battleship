@@ -29,7 +29,6 @@ export default function GameLayoutComponent(props) {
                         player2Ships={props.player2Ships}
                         selectShip={props.selectShip}
                         selectedShip={props.selectedShip}
-
                     />
                 }
                 {props.children[1]}

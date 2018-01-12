@@ -9,7 +9,9 @@ export default function OceanSquareComponent(props) {
     }
     function handleClick(){
         if(props.data.owner === props.activePlayerId){
-            console.log('Ouchy')
+            if(props.stage === 'setup'){
+                props.assign(props.data.id);
+            }
         }
     }
 

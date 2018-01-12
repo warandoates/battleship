@@ -1,11 +1,3 @@
-function removeShipFromList(currentState){
-    currentState.activePlayerId === 1
-        ?
-        currentState.player1Ships.find(ship => ship.name === currentState.selectedShip.name).available = false
-        :
-        currentState.player2Ships.find(ship => ship.name === currentState.selectedShip.name).available = false
-}
-
 export default function rootReducer(currentState = {
     stage: 'start',
     selectedShip: {},
@@ -116,7 +108,6 @@ export default function rootReducer(currentState = {
                     let assignedSquareH = filledBoard.find(square => square.id === action.id + i)
                     assignedSquareH.contents = currentState.selectedShip.name;
                     assignedSquareH.color = 'darkgrey';
-                    removeShipFromList(currentState)
                 }
             }
             else {
@@ -127,9 +118,17 @@ export default function rootReducer(currentState = {
                     let assignedSquareH = filledBoard.find(square => square.id === action.id + (i * 10))
                     assignedSquareH.contents = currentState.selectedShip.name;
                     assignedSquareH.color = 'darkgrey';
-                    removeShipFromList(currentState)
                 }
             }
+            currentState.activePlayerId === 1
+                ?
+                currentState.player1Ships.find(ship => ship.name === currentState.selectedShip.name).available = false
+                :
+                currentState.player2Ships.find(ship => ship.name === currentState.selectedShip.name).available = false
+
+            if(currentState.player1Ships.filter(ship => ship.available === true).length === 0) currentState.activePlayerId = 2;
+            if(currentState.player2Ships.filter(ship => ship.available === true).length === 0) currentState.activePlayerId = 1;
+
             return {
                 ...currentState,
                 boardOfAssignment: filledBoard,

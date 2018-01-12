@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: dodgerblue;
+  background-color: black;
 }
 
 h3{
@@ -61,7 +61,7 @@ h3{
   transition: all 200ms ease;
 }
 
-.oceanSquare:hover{
+.oceanSquareHighlighted{
   background-color: #afd3e2;
   -webkit-transition: all 200ms ease;
   -moz-transition: all 200ms ease;
@@ -73,9 +73,4 @@ h3{
 .pickerContainer{
   width: 300px;
   margin: 50px 0;
-}
-
-
-.pickerRow p{
-
 }

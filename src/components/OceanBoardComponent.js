@@ -4,7 +4,7 @@ import OceanSquareComponent from './OceanSquareComponent';
 function boardMaker() {
     let emptyBoard = [];
     for (let i = 1; i <= 100; i++) {
-        emptyBoard.push(0)
+        emptyBoard.push([i, 'blank'])
     }
     return emptyBoard
 }

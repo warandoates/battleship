@@ -8,8 +8,8 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return{
-        testFunction: () => dispatch({ type: "TEST" }),
-        buildBoard: (newBoard, playerId) => dispatch({type: "BUILD_BOARD", newBoard, playerId})
+        buildBoard: (newBoard, playerId) => dispatch({type: "BUILD_BOARD", newBoard, playerId}),
+        startGame: () => dispatch({type: "START_GAME"})
     }
 }
 

@@ -23,6 +23,7 @@ export default function GameLayoutComponent(props) {
                         Click Here To Start Game
                     </button>
                     :
+                    props.stage === 'setup' ?
                     <ShipPickerComponent
                         activePlayerId={props.activePlayerId}
                         player1Ships={props.player1Ships}
@@ -30,6 +31,8 @@ export default function GameLayoutComponent(props) {
                         selectShip={props.selectShip}
                         selectedShip={props.selectedShip}
                     />
+                        :
+                        <h1>GAME ON!</h1>
                 }
                 {props.children[1]}
             </main>

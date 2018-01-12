@@ -96,6 +96,7 @@ export default function rootReducer(currentState = {
                 previousBoardOfInterest: cleanedBoard
             };
         case "ASSIGN":
+            if(!currentState.selectedShip.name) return currentState
             let boardOfAssignment = currentState.activePlayerId === 1
                 ? currentState.playerOneBoard
                 : currentState.playerTwoBoard;
@@ -126,14 +127,19 @@ export default function rootReducer(currentState = {
                 :
                 currentState.player2Ships.find(ship => ship.name === currentState.selectedShip.name).available = false
 
-            if(currentState.player1Ships.filter(ship => ship.available === true).length === 0) currentState.activePlayerId = 2;
-            if(currentState.player2Ships.filter(ship => ship.available === true).length === 0) currentState.activePlayerId = 1;
+            if (currentState.player1Ships.filter(ship => ship.available === true).length === 0) currentState.activePlayerId = 2;
+            if (currentState.player2Ships.filter(ship => ship.available === true).length === 0) currentState.activePlayerId = 1;
+            if (currentState.player1Ships.filter(ship => ship.available === true).length === 0 && currentState.player2Ships.filter(ship => ship.available === true).length === 0){
+                currentState.stage = "game";
+                currentState.activePlayerId = 0;
+            }
 
-            return {
-                ...currentState,
-                boardOfAssignment: filledBoard,
-                selectedShip: {}
-            };
+
+                return {
+                    ...currentState,
+                    boardOfAssignment: filledBoard,
+                    selectedShip: Object.assign({})
+                };
 
 
         default:

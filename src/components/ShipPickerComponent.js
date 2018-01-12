@@ -2,47 +2,58 @@ import React, {Component} from 'react';
 
 export default class ShipPickerComponent extends Component {
     state = {
-        horizontal: true
+        horizontal: true,
+    };
+
+    handleClickOrientation(horizontalValue) {
+        this.setState({horizontal: horizontalValue})
+    }
+
+    handleClickShip(shipName, shipSize) {
+        let data = {
+            shipName,
+            shipSize,
+            horizontal: this.state.horizontal,
+            activePlayerId: this.props.activePlayerId
+        }
+        console.log(data)
     }
 
     render() {
-        let ships = [
-            {name: 'Carrier', size: 5, imgURL: 'images/001-carrier.png'},
-            {name: 'Battleship', size: 4, imgURL: 'images/002-battleship.png'},
-            {name: 'Cruiser', size: 3, imgURL: 'images/003-cruiser.png'},
-            {name: 'Sub', size: 3, imgURL: 'images/004-submarine.png'},
-            {name: 'Destroyer', size: 2, imgURL: 'images/005-destroyer.png'}
-        ]
+        let theseShips = this.props.activePlayerId === 1 ? this.props.player1Ships : this.props.player2Ships;
         return (
             <div className="pickerContainer">
-
                 <div className="row">
                     <div className="col s12">
+                        <h3>Player #{this.props.activePlayerId}</h3>
                         <h3>Pick A Ship To Place It</h3>
                     </div>
                 </div>
-
                 <div className="row">
                     <div className="col s6">
                         <button
                             className={`btn ${this.state.horizontal ? 'red' : 'grey'}`}
+                            onClick={() => this.handleClickOrientation(true)}
                         >
-                            {"Horiz."}
+                            Horiz.
                         </button>
                     </div>
                     <div className="col s6">
                         <button
                             className={`btn ${this.state.horizontal ? 'grey' : 'red'}`}
+                            onClick={() => this.handleClickOrientation(false)}
                         >
-                            {"Vert."}
+                            Vert.
                         </button>
                     </div>
                 </div>
-
-                {ships.map((boat, index) => {
+                {theseShips.map((boat, index) => {
                     return (
                         <div key={index}>
-                            <div className="row btn blue">
+                            <button
+                                className={`row btn ${boat.available ? 'blue' : 'disabled'}`}
+                                onClick={() => this.handleClickShip(boat.name, boat.size)}
+                            >
                                 <div className="col s5" style={{textAlign: "left"}}>
                                     {boat.name} ({boat.size})
                                 </div>
@@ -54,7 +65,7 @@ export default class ShipPickerComponent extends Component {
                                         height="40"
                                     />
                                 </div>
-                            </div>
+                            </button>
                         </div>
                     )
                 })}

@@ -3,7 +3,6 @@ import HeaderComponent from './HeaderComponent'
 import ShipPickerComponent from './ShipPickerComponent'
 
 export default function GameLayoutComponent(props) {
-    // console.log(props)
 
     function handleClick(){
         props.startGame()
@@ -24,7 +23,11 @@ export default function GameLayoutComponent(props) {
                         Click Here To Start Game
                     </button>
                     :
-                    <ShipPickerComponent/>
+                    <ShipPickerComponent
+                        activePlayerId={props.activePlayerId}
+                        player1Ships={props.player1Ships}
+                        player2Ships={props.player2Ships}
+                    />
                 }
                 {props.children[1]}
             </main>

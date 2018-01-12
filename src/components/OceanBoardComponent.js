@@ -25,7 +25,11 @@ export default class OceanBoardComponent extends Component {
                 <div className={"oceanBoard"}>
                     {this.props.playerBoard
                         ?
-                        this.props.playerBoard.map((square, index) => <OceanSquareComponent key={index}/>)
+                        this.props.playerBoard.map((square, index) => {
+                        return (<OceanSquareComponent
+                            key={index}
+                            selectedShip={this.props.selectedShip}
+                        />)})
                         :
                         null}
                 </div>

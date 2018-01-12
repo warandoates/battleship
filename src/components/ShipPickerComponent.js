@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 export default class ShipPickerComponent extends Component {
     state = {
         horizontal: true,
+        selectedShipName: ''
     };
 
     handleClickOrientation(horizontalValue) {
@@ -11,21 +12,22 @@ export default class ShipPickerComponent extends Component {
 
     handleClickShip(shipName, shipSize) {
         let data = {
-            shipName,
-            shipSize,
-            horizontal: this.state.horizontal,
-            activePlayerId: this.props.activePlayerId
-        }
-        console.log(data)
+            selectedShipName: shipName,
+            selectedShipSize: shipSize,
+            selectedShipHorizontal: this.state.horizontal,
+        };
+        this.props.selectShip(data);
+        this.setState({selectedShipName: shipName})
     }
 
     render() {
+        console.log(this.props.selectedShip)
         let theseShips = this.props.activePlayerId === 1 ? this.props.player1Ships : this.props.player2Ships;
         return (
             <div className="pickerContainer">
                 <div className="row">
                     <div className="col s12">
-                        <h3>Player #{this.props.activePlayerId}</h3>
+                        <h3 style={{marginTop: '-20px', fontWeight: 'bold'}}>Player #{this.props.activePlayerId}</h3>
                         <h3>Pick A Ship To Place It</h3>
                     </div>
                 </div>
@@ -51,11 +53,14 @@ export default class ShipPickerComponent extends Component {
                     return (
                         <div key={index}>
                             <button
-                                className={`row btn ${boat.available ? 'blue' : 'disabled'}`}
+                                className={`row btn ${boat.available ?
+                                    boat.name === this.state.selectedShipName ? 'indigo' : 'blue'
+                                    :
+                                    'disabled'}`}
                                 onClick={() => this.handleClickShip(boat.name, boat.size)}
                             >
                                 <div className="col s5" style={{textAlign: "left"}}>
-                                    {boat.name} ({boat.size})
+                                    {boat.name}
                                 </div>
                                 <div className="col s7">
                                     <img

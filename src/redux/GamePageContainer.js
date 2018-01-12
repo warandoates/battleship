@@ -9,7 +9,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return{
         buildBoard: (newBoard, playerId) => dispatch({type: "BUILD_BOARD", newBoard, playerId}),
-        startGame: () => dispatch({type: "START_GAME"})
+        startGame: () => dispatch({type: "START_GAME"}),
+        selectShip: (data) => dispatch({type: "SELECT_SHIP", data})
     }
 }
 

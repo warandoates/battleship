@@ -1,21 +1,23 @@
 import React, {Component} from 'react';
 import OceanSquareComponent from './OceanSquareComponent';
 
-function boardMaker() {
+function boardMaker(playerId) {
     let emptyBoard = [];
     for (let i = 1; i <= 100; i++) {
-        emptyBoard.push([i, 'blank'])
+        emptyBoard.push({
+            id: i,
+            owner: playerId,
+            contents: 'empty',
+            color: 'white'
+        })
     }
     return emptyBoard
 }
 
 export default class OceanBoardComponent extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
-        this.props.buildBoard(boardMaker(), this.props.playerId)
+        this.props.buildBoard(boardMaker(this.props.playerId), this.props.playerId)
     }
 
     render() {
@@ -28,7 +30,10 @@ export default class OceanBoardComponent extends Component {
                         this.props.playerBoard.map((square, index) => {
                         return (<OceanSquareComponent
                             key={index}
-                            selectedShip={this.props.selectedShip}
+                            data={square}
+                            hover={this.props.hover}
+                            offHover={this.props.offHover}
+                            activePlayerId={this.props.activePlayerId}
                         />)})
                         :
                         null}

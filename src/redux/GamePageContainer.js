@@ -10,7 +10,9 @@ function mapDispatchToProps(dispatch){
     return{
         buildBoard: (newBoard, playerId) => dispatch({type: "BUILD_BOARD", newBoard, playerId}),
         startGame: () => dispatch({type: "START_GAME"}),
-        selectShip: (data) => dispatch({type: "SELECT_SHIP", data})
+        selectShip: (data) => dispatch({type: "SELECT_SHIP", data}),
+        hover: (id) => dispatch({type: "HOVER", id}),
+        offHover: (id) => dispatch({type: "OFF_HOVER", id})
     }
 }
 

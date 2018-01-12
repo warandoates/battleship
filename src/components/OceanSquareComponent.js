@@ -1,16 +1,26 @@
 import React from 'react';
 
 export default function OceanSquareComponent(props) {
-
     function handleMouseEnter(){
-        if(props.selectedShip) console.log(props.selectedShip)
+        if(props.data.owner === props.activePlayerId) props.hover(props.data.id)
+    }
+    function handleMouseLeave() {
+        if(props.data.owner === props.activePlayerId) props.offHover(props.data.id)
+    }
+    function handleClick(){
+        if(props.data.owner === props.activePlayerId){
+            console.log('Ouchy')
+        }
     }
 
     return (
         <div>
             <div
                 className={"oceanSquare"}
+                style={{backgroundColor: props.data.color}}
                 onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onClick={handleClick}
             >
             </div>
         </div>

@@ -18,13 +18,17 @@ export default function GamePageComponent(props) {
                 playerId={1}
                 buildBoard={props.buildBoard}
                 playerBoard={props.playerOneBoard}
-                selectedShip={props.selectedShip}
+                hover={props.hover}
+                offHover={props.offHover}
+                activePlayerId={props.activePlayerId}
             />
             <OceanBoardComponent
                 playerId={2}
                 buildBoard={props.buildBoard}
                 playerBoard={props.playerTwoBoard}
-                selectedShip={props.selectedShip}
+                hover={props.hover}
+                offHover={props.offHover}
+                activePlayerId={props.activePlayerId}
             />
         </GameLayoutComponent>
     )

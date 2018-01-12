@@ -33,10 +33,60 @@ export default function rootReducer(
                 ...currentState,
                 playerTwoBoard: action.newBoard
             };
+            else return{...currentState}
         case "SELECT_SHIP":
             return{
                 ...currentState,
-                selectedShip: action.data
+                selectedShip: {
+                    name: action.data.selectedShipName,
+                    size: action.data.selectedShipSize,
+                    horizontal: action.data.selectedShipHorizontal
+                }
+            };
+        case "HOVER":
+            let boardOfInterest = currentState.activePlayerId === 1
+                ? currentState.playerOneBoard
+                : currentState.playerTwoBoard;
+            let newBoard = [... boardOfInterest];
+            if(currentState.selectedShip.horizontal) {
+                if(action.id % 10 + currentState.selectedShip.size > 11 || action.id % 10 === 0) {
+                    return currentState
+                }
+                for(let i = 0; i < currentState.selectedShip.size; i++)
+                newBoard.find(square => square.id === action.id + i).color = 'blue';
+            }
+            else{
+                if(action.id + (10 * currentState.selectedShip.size) > 110) {
+                    return currentState
+                }
+                for(let i = 0; i < currentState.selectedShip.size; i++)
+                    newBoard.find(square => square.id === action.id + (i * 10)).color = 'blue';
+            }
+        return {
+            ...currentState,
+            boardOfInterest: newBoard
+        }
+        case "OFF_HOVER":
+            let previousBoardOfInterest = currentState.activePlayerId === 1
+                ? currentState.playerOneBoard
+                : currentState.playerTwoBoard;
+            let cleanedBoard = [... previousBoardOfInterest];
+            if(currentState.selectedShip.horizontal) {
+                if (action.id % 10 + currentState.selectedShip.size > 11 || action.id % 10 === 0) {
+                    return currentState
+                }
+                for(let i = 0; i < currentState.selectedShip.size; i++)
+                    previousBoardOfInterest.find(square => square.id === action.id + i).color = 'white';
+            }else{
+                if(action.id + (10 * currentState.selectedShip.size) > 110) {
+                    return currentState
+                }
+                for(let i = 0; i < currentState.selectedShip.size; i++)
+                    cleanedBoard.find(square => square.id === action.id + (i * 10)).color = 'white';
+            }
+            return {
+                ...currentState,
+                previousBoardOfInterest: cleanedBoard
             }
         default:
             return currentState

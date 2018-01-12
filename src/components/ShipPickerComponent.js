@@ -2,26 +2,37 @@ import React, {Component} from 'react';
 
 export default class ShipPickerComponent extends Component {
     state = {
+        name: '',
+        size: 0,
         horizontal: true,
-        selectedShipName: ''
     };
 
     handleClickOrientation(horizontalValue) {
         this.setState({horizontal: horizontalValue})
+        let data = {
+            selectedShipName: this.state.name,
+            selectedShipSize: this.state.size,
+            selectedShipHorizontal: horizontalValue,
+        };
+        console.log(data)
+        this.props.selectShip(horizontalValue);
+        this.props.selectShip(data);
     }
 
     handleClickShip(shipName, shipSize) {
+        this.setState({
+            name: shipName,
+            size: shipSize
+        })
         let data = {
             selectedShipName: shipName,
             selectedShipSize: shipSize,
             selectedShipHorizontal: this.state.horizontal,
         };
         this.props.selectShip(data);
-        this.setState({selectedShipName: shipName})
     }
 
     render() {
-        console.log(this.props.selectedShip)
         let theseShips = this.props.activePlayerId === 1 ? this.props.player1Ships : this.props.player2Ships;
         return (
             <div className="pickerContainer">

@@ -21,7 +21,8 @@ export default function rootReducer(currentState = {
             return {
                 ...currentState,
                 stage: 'setup',
-                activePlayerId: Math.ceil(Math.random() * 2)
+                activePlayerId: 1,
+                battleLog: [{time: '8:30am', sentence: "p1's sunk p2's sub"}]
             }
         case "BUILD_BOARD":
             if (action.playerId === 1) return {
@@ -131,7 +132,7 @@ export default function rootReducer(currentState = {
             if (currentState.player2Ships.filter(ship => ship.available === true).length === 0) currentState.activePlayerId = 1;
             if (currentState.player1Ships.filter(ship => ship.available === true).length === 0 && currentState.player2Ships.filter(ship => ship.available === true).length === 0){
                 currentState.stage = "game";
-                currentState.activePlayerId = 0;
+                currentState.activePlayerId = Math.ceil(Math.random() * 2);
             }
 
 

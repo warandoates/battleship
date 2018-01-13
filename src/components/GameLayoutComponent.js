@@ -1,10 +1,11 @@
 import React from 'react';
 import HeaderComponent from './HeaderComponent'
 import ShipPickerComponent from './ShipPickerComponent'
+import BattleLogComponent from './BattleLogComponent'
 
 export default function GameLayoutComponent(props) {
 
-    function handleClick(){
+    function handleClick() {
         props.startGame()
     }
 
@@ -23,16 +24,19 @@ export default function GameLayoutComponent(props) {
                         Click Here To Start Game
                     </button>
                     :
-                    props.stage === 'setup' ?
-                    <ShipPickerComponent
-                        activePlayerId={props.activePlayerId}
-                        player1Ships={props.player1Ships}
-                        player2Ships={props.player2Ships}
-                        selectShip={props.selectShip}
-                        selectedShip={props.selectedShip}
-                    />
+                    props.stage === 'game' ?
+                        <ShipPickerComponent
+                            activePlayerId={props.activePlayerId}
+                            player1Ships={props.player1Ships}
+                            player2Ships={props.player2Ships}
+                            selectShip={props.selectShip}
+                            selectedShip={props.selectedShip}
+                        />
                         :
-                        <h1>GAME ON!</h1>
+                        <BattleLogComponent
+                            activePlayerId={props.activePlayerId}
+                            battleLog={props.battleLog}
+                        />
                 }
                 {props.children[1]}
             </main>

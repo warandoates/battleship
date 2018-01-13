@@ -32,7 +32,7 @@ h3{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   min-height: 90vh;
 }
 
@@ -64,4 +64,29 @@ h3{
 .pickerContainer{
   width: 300px;
   margin: 50px 0;
+}
+
+.battleLogContainer{
+  width: 400px;
+  height: 80vh;
+  margin: 20px 10px;
+  box-shadow: 3px 3px 3px 1px grey;
+}
+
+.battleLogRow{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #DDDAE2;
+;
+  padding: 5px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 10px;
+  width: 100%;
+}
+
+.logTitle{
+  font-size: 18px;
+  font-weight: bold;
+  color: red;
 }

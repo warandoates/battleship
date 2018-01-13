@@ -12,6 +12,7 @@ export default function GamePageComponent(props) {
             player2Ships={props.player2Ships}
             selectShip={props.selectShip}
             selectedShip={props.selectedShip}
+            battleLog={props.battleLog}
         >
             <OceanBoardComponent
                 playerId={1}

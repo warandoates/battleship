@@ -21,8 +21,11 @@ export default function GamePageComponent(props) {
                 hover={props.hover}
                 offHover={props.offHover}
                 assign={props.assign}
+                attack={props.attack}
                 activePlayerId={props.activePlayerId}
                 stage={props.stage}
+                playerShips={props.player1Ships}
+                fleetLost={props.fleetLost}
             />
             <OceanBoardComponent
                 playerId={2}
@@ -31,8 +34,11 @@ export default function GamePageComponent(props) {
                 hover={props.hover}
                 offHover={props.offHover}
                 assign={props.assign}
+                attack={props.attack}
                 activePlayerId={props.activePlayerId}
                 stage={props.stage}
+                playerShips={props.player2Ships}
+                fleetLost={props.fleetLost}
             />
         </GameLayoutComponent>
     )

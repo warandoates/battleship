@@ -14,7 +14,6 @@ export default class ShipPickerComponent extends Component {
             selectedShipSize: this.state.size,
             selectedShipHorizontal: horizontalValue,
         };
-        console.log(data)
         this.props.selectShip(horizontalValue);
         this.props.selectShip(data);
     }
@@ -65,7 +64,7 @@ export default class ShipPickerComponent extends Component {
                         <div key={index}>
                             <button
                                 className={`row btn ${boat.available ?
-                                    boat.name === this.state.name ? 'indigo' : 'blue'
+                                    boat.name === this.props.selectedShip.name ? 'indigo' : 'blue'
                                     :
                                     'disabled'}`}
                                 style={{width: '300px'}}

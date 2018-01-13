@@ -84,7 +84,7 @@ h3{
   height: 80vh;
   margin: 20px 10px;
   box-shadow: 3px 3px 3px 1px grey;
-  overflow: auto;
+  overflow: scroll;
 }
 .battleLogRow{
   display: flex;

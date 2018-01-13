@@ -14,6 +14,7 @@ export default function OceanSquareComponent(props) {
     }
 
     function handleClick() {
+        if(props.data.stage === "over") return;
         if (props.data.owner === props.activePlayerId) {
             if (props.stage === 'setup') {
                 props.assign(props.data.id);

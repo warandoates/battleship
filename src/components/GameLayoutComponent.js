@@ -34,8 +34,10 @@ export default function GameLayoutComponent(props) {
                         />
                         :
                         <BattleLogComponent
+                            stage={props.stage}
                             activePlayerId={props.activePlayerId}
                             battleLog={props.battleLog}
+                            winner={props.winner}
                         />
                 }
                 {props.children[1]}

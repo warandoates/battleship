@@ -1,49 +1,6 @@
 import moment from 'moment'
-
-function sentenceBuilder(data, activePlayerId) {
-    let positiveSlams = [
-        "BOO-YA!",
-        "WATCH OUT!",
-        "Now we're cooking with gas!!!",
-        "They could hear it the cheap seats!",
-        "That's how you GET. IT. DONE.",
-    ];
-    let negativeSlams = [
-        "hit nothing but water",
-        "couldn't hit fish in a barrel",
-        "wishes they could take that one back",
-        "is slipping!",
-        "needs to go back to the drawing board",
-    ];
-    console.log(data)
-    if (data.contents === 'empty') {
-        return `MISS! Player ${activePlayerId} ${negativeSlams[Math.floor(Math.random() * 5)]}!`
-    } else {
-        return `HIT! Player ${activePlayerId} hit a ${data.contents}.
-        ${positiveSlams[Math.floor(Math.random() * 5)]}`
-    }
-}
-
-
-function checkValidSquares(squareId, size, horizontal, newBoard) {
-    if (horizontal) {
-        if (squareId % 10 + size > 11 || squareId % 10 === 0) return false;
-
-        for (let i = 0; i <= size; i++) {
-            if (!newBoard[squareId + i - 2]) return false;
-            if (newBoard[squareId + i - 2].contents !== 'empty') return false;
-        }
-
-    } else {
-        if (squareId + (10 * size) > 110) return false;
-        for (let i = 0; i < size; i++) {
-            if (!newBoard[squareId - 1 + (i * 10)]) return false;
-            if (newBoard[squareId -1 + (i * 10)].contents !== 'empty') return false;
-        }
-    }
-    return true;
-}
-
+import sentenceBuilder from '../helperFunctions/sentenceBuilder'
+import checkValidSquares from '../helperFunctions/checkValidSquares'
 
 export default function rootReducer(currentState = {
     stage: 'start',
@@ -63,7 +20,6 @@ export default function rootReducer(currentState = {
         {name: 'Destroyer', size: 2, imgURL: 'images/005-destroyer.png', available: true, hits: 0}
     ]
 }, action) {
-
     switch (action.type) {
         case "START_GAME":
             return {
@@ -74,7 +30,11 @@ export default function rootReducer(currentState = {
             }
         case "FLEET_LOST":
             console.log('BAM - WE HAVE A LOSER. ID: ', action.loser_id)
-            break;
+            return{
+                ...currentState,
+                stage: 'over',
+                winner: action.loser_id === 2 ? 1 : 2
+            }
         case "BUILD_BOARD":
             if (action.playerId === 1) return {
                 ...currentState,
@@ -213,12 +173,9 @@ export default function rootReducer(currentState = {
                 target.status = 'miss'
             } else {
                 target.status = 'hit';
-
                 currentState.activePlayerId === 1 ?
                     newPlayer2Ships.find(ship => ship.name === action.data.contents).hits++
                     : newPlayer1Ships.find(ship => ship.name === action.data.contents).hits++
-
-
             }
             let logObject = {
                 time: moment(Date.now()).format('h:m:s'),
@@ -234,9 +191,6 @@ export default function rootReducer(currentState = {
                 player1Ships: newPlayer1Ships,
                 player2Ships: newPlayer2Ships
             };
-        //deal with sinking conditions
-        //deal with winning conditions
-
         default:
             return currentState
     }

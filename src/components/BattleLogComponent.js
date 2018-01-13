@@ -15,9 +15,9 @@ export default function BattleLogComponent(props) {
             <h4 className={'logTitle'}> Player {props.activePlayerId}'s Turn To Strike</h4>
             }
             <div className={'battleLogContainer'}>
-                {props.battleLog.map(logItem => {
+                {props.battleLog.map((logItem, index) => {
                     return (
-                        <div className={'battleLogRow'}>
+                        <div className={'battleLogRow'} key={index}>
                             <div style={{width: '100px'}}>{logItem.time}</div>
                             <div style={{width: '300px'}}>{logItem.sentence}</div>
                         </div>

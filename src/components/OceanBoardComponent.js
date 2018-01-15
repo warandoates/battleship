@@ -21,10 +21,7 @@ export default class OceanBoardComponent extends Component {
             this.props.fleetLost(this.props.playerId)
         }
     }
-
-
     render() {
-        console.log('> ', this.props.stage)
         return (
             <div>
                 <h3>Player {this.props.playerId}
@@ -63,7 +60,7 @@ export default class OceanBoardComponent extends Component {
                             null
                     }
                 </div>
-                {this.props.stage === 'game' ?
+                {this.props.stage === 'game' || this.props.stage === 'over' ?
                         <div>
                             <p className={"subtitleBelow"}>Ships I've Lost:</p>
                             {this.props.playerShips ?

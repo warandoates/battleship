@@ -4,15 +4,13 @@ import checkValidSquares from '../helperFunctions/checkValidSquares'
 import boardBuilder from '../helperFunctions/boardBuilder'
 import startingShips from '../helperFunctions/startingShips'
 
-let startingState = {
+export default function rootReducer(currentState = {
     stage: 'start',
     battleLog: [],
     selectedShip: {},
     player1Ships: startingShips(),
     player2Ships: startingShips()
-};
-
-export default function rootReducer(currentState = {...startingState}, action) {
+}, action) {
     switch (action.type) {
         case "START_GAME":
             return {
@@ -24,7 +22,7 @@ export default function rootReducer(currentState = {...startingState}, action) {
                 playerTwoBoard: boardBuilder(2)
             }
         case "FLEET_LOST":
-            return{
+            return {
                 ...currentState,
                 stage: 'over',
                 winner: action.loser_id === 2 ? 1 : 2
@@ -53,14 +51,12 @@ export default function rootReducer(currentState = {...startingState}, action) {
             }
             if (currentState.selectedShip.horizontal) {
                 for (let i = 0; i < currentState.selectedShip.size; i++) {
-                    let squareToColorH = newBoard.find(square => square.id === action.id + i)
-                    if (squareToColorH.contents === 'empty') squareToColorH.color = 'lightblue';
+                    newBoard[action.id + i - 1].color='lightblue';
                 }
             }
             else {
                 for (let i = 0; i < currentState.selectedShip.size; i++) {
-                    let squareToColorV = newBoard.find(square => square.id === action.id + (i * 10))
-                    if (squareToColorV.contents === 'empty') squareToColorV.color = 'lightblue';
+                    newBoard[action.id + (i * 10) - 1].color='lightblue';
                 }
             }
             return {
@@ -82,13 +78,11 @@ export default function rootReducer(currentState = {...startingState}, action) {
             }
             if (currentState.selectedShip.horizontal) {
                 for (let i = 0; i < currentState.selectedShip.size; i++) {
-                    let squareToErase = previousBoardOfInterest.find(square => square.id === action.id + i)
-                    if (squareToErase.contents === 'empty') squareToErase.color = 'white';
+                    previousBoardOfInterest[action.id + i - 1].color = 'white';
                 }
             } else {
                 for (let i = 0; i < currentState.selectedShip.size; i++) {
-                    let thisSquare = cleanedBoard.find(square => square.id === action.id + (i * 10))
-                    if (thisSquare.contents === 'empty') thisSquare.color = 'white';
+                    cleanedBoard[action.id + (i * 10) - 1].color = "white";
                 }
             }
             return {

@@ -17,7 +17,7 @@ export default function GameLayoutComponent(props) {
                 {props.stage === 'start'
                     ?
                     <button
-                        className={"btn red"}
+                        className={"btn red btn-large"}
                         style={{"marginTop": "100px"}}
                         onClick={() => handleClick()}
                     >
@@ -38,6 +38,7 @@ export default function GameLayoutComponent(props) {
                             activePlayerId={props.activePlayerId}
                             battleLog={props.battleLog}
                             winner={props.winner}
+                            resetGame={props.resetGame}
                         />
                 }
                 {props.children[1]}

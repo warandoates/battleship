@@ -1,50 +1,34 @@
 import moment from 'moment'
 import sentenceBuilder from '../helperFunctions/sentenceBuilder'
 import checkValidSquares from '../helperFunctions/checkValidSquares'
+import boardBuilder from '../helperFunctions/boardBuilder'
+import startingShips from '../helperFunctions/startingShips'
 
-export default function rootReducer(currentState = {
+let startingState = {
     stage: 'start',
+    battleLog: [],
     selectedShip: {},
-    player1Ships: [
-        {name: 'Carrier', size: 5, imgURL: 'images/001-carrier.png', available: true, hits: 0},
-        {name: 'Battleship', size: 4, imgURL: 'images/002-battleship.png', available: true, hits: 0},
-        {name: 'Cruiser', size: 3, imgURL: 'images/003-cruiser.png', available: true, hits: 0},
-        {name: 'Sub', size: 3, imgURL: 'images/004-submarine.png', available: true, hits: 0},
-        {name: 'Destroyer', size: 2, imgURL: 'images/005-destroyer.png', available: true, hits: 0}
-    ],
-    player2Ships: [
-        {name: 'Carrier', size: 5, imgURL: 'images/001-carrier.png', available: true, hits: 0},
-        {name: 'Battleship', size: 4, imgURL: 'images/002-battleship.png', available: true, hits: 0},
-        {name: 'Cruiser', size: 3, imgURL: 'images/003-cruiser.png', available: true, hits: 0},
-        {name: 'Sub', size: 3, imgURL: 'images/004-submarine.png', available: true, hits: 0},
-        {name: 'Destroyer', size: 2, imgURL: 'images/005-destroyer.png', available: true, hits: 0}
-    ]
-}, action) {
+    player1Ships: startingShips(),
+    player2Ships: startingShips()
+};
+
+export default function rootReducer(currentState = {...startingState}, action) {
     switch (action.type) {
         case "START_GAME":
             return {
                 ...currentState,
                 stage: 'setup',
                 activePlayerId: 1,
-                battleLog: [{time: moment(Date.now()).format('h:m:s'), sentence: "Battle Begins!!!"}]
+                battleLog: [{time: moment(Date.now()).format('h:m:s'), sentence: "Battle Begins!!!"}],
+                playerOneBoard: boardBuilder(1),
+                playerTwoBoard: boardBuilder(2)
             }
         case "FLEET_LOST":
-            console.log('BAM - WE HAVE A LOSER. ID: ', action.loser_id)
             return{
                 ...currentState,
                 stage: 'over',
                 winner: action.loser_id === 2 ? 1 : 2
             }
-        case "BUILD_BOARD":
-            if (action.playerId === 1) return {
-                ...currentState,
-                playerOneBoard: action.newBoard
-            };
-            else if (action.playerId === 2) return {
-                ...currentState,
-                playerTwoBoard: action.newBoard
-            };
-            else return {...currentState}
         case "SELECT_SHIP":
             return {
                 ...currentState,
@@ -190,6 +174,14 @@ export default function rootReducer(currentState = {
                 battleLog: newLog,
                 player1Ships: newPlayer1Ships,
                 player2Ships: newPlayer2Ships
+            };
+        case "RESET_GAME":
+            return {
+                stage: 'start',
+                battleLog: [],
+                selectedShip: {},
+                player1Ships: startingShips(),
+                player2Ships: startingShips()
             };
         default:
             return currentState

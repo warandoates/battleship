@@ -14,10 +14,10 @@ export default function GamePageComponent(props) {
             selectedShip={props.selectedShip}
             battleLog={props.battleLog}
             winner={props.winner}
+            resetGame={props.resetGame}
         >
             <OceanBoardComponent
                 playerId={1}
-                buildBoard={props.buildBoard}
                 playerBoard={props.playerOneBoard}
                 hover={props.hover}
                 offHover={props.offHover}
@@ -30,7 +30,6 @@ export default function GamePageComponent(props) {
             />
             <OceanBoardComponent
                 playerId={2}
-                buildBoard={props.buildBoard}
                 playerBoard={props.playerTwoBoard}
                 hover={props.hover}
                 offHover={props.offHover}

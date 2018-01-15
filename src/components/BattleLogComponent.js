@@ -1,6 +1,10 @@
 import React from 'react';
 
 export default function BattleLogComponent(props) {
+    function handleReset(){
+        props.resetGame()
+    }
+
     return (
         <div>
             {props.stage === "over"
@@ -10,6 +14,12 @@ export default function BattleLogComponent(props) {
                 <h4 className={'logTitle'}>
                     The winner is Player {props.winner}
                 </h4>
+                    <button
+                        className={'btn indigo btn-large'}
+                        onClick={() => handleReset()}
+                    >
+                        Start New Game
+                    </button>
                 </div>
                 :
             <h4 className={'logTitle'}> Player {props.activePlayerId}'s Turn To Strike</h4>

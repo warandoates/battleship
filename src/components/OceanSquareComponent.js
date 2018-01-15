@@ -1,18 +1,23 @@
 import React from 'react';
 
+// Individual square / position. There are 100 of these per ocean board
 export default function OceanSquareComponent(props) {
+
+    // Handles hovering over square - only of interest during setup
     function handleMouseEnter() {
         if (props.data.owner === props.activePlayerId && props.stage === 'setup') {
             props.hover(props.data.id)
         }
     }
 
+    // Handles removing cursor from square - only of interest during setup
     function handleMouseLeave() {
         if (props.data.owner === props.activePlayerId&& props.stage === 'setup'){
             props.offHover(props.data.id)
         }
     }
 
+    // Handles clicking specific square on screen. Assigning during SETUP. Attacking during GAME.
     function handleClick() {
         if(props.data.stage === "over") return;
         if (props.data.owner === props.activePlayerId) {
@@ -27,9 +32,11 @@ export default function OceanSquareComponent(props) {
         }
     }
 
+    // Decides content of a square on screen (red and grey x's based on hit/miss)
     function displayInSquare() {
         if (props.data.status === 'miss') return (<div className={'resultInSquareMiss'}>x</div>);
         if (props.data.status === 'hit') return (<div className={'resultInSquareHit'}>x</div>);
+        return null;
     }
 
     return (

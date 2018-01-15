@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+// Provides list of 5 ships for users to select when assigning ships to their boards
 export default class ShipPickerComponent extends Component {
     state = {
         name: '',
@@ -7,6 +8,7 @@ export default class ShipPickerComponent extends Component {
         horizontal: true,
     };
 
+    // Changing orientation between true and false
     handleClickOrientation(horizontalValue) {
         this.setState({horizontal: horizontalValue})
         let data = {
@@ -18,6 +20,7 @@ export default class ShipPickerComponent extends Component {
         this.props.selectShip(data);
     }
 
+    // Selecting a specific ship to place
     handleClickShip(shipName, shipSize) {
         this.setState({
             name: shipName,
@@ -59,7 +62,8 @@ export default class ShipPickerComponent extends Component {
                         </button>
                     </div>
                 </div>
-                {theseShips.map((boat, index) => {
+                {// All ships in a list based on Redux store's account of ships (not available are disabled)
+                    theseShips.map((boat, index) => {
                     return (
                         <div key={index}>
                             <button

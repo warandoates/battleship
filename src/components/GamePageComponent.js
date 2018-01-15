@@ -2,6 +2,7 @@ import React from 'react';
 import GameLayoutComponent from './GameLayoutComponent';
 import OceanBoardComponent from './OceanBoardComponent';
 
+//Overall page with 2 ocean board components passed in as children
 export default function GamePageComponent(props) {
     return (
         <GameLayoutComponent

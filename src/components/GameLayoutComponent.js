@@ -3,6 +3,7 @@ import HeaderComponent from './HeaderComponent'
 import ShipPickerComponent from './ShipPickerComponent'
 import BattleLogComponent from './BattleLogComponent'
 
+//Renders layout and has logic for what to show on the screen based on game stage
 export default function GameLayoutComponent(props) {
 
     function handleClick() {
@@ -14,7 +15,8 @@ export default function GameLayoutComponent(props) {
             <HeaderComponent/>
             <main className={"boardContainer"}>
                 {props.children[0]}
-                {props.stage === 'start'
+                {//At Start of game, middle of page shows button to start
+                    props.stage === 'start'
                     ?
                     <button
                         className={"btn red btn-large"}
@@ -24,6 +26,7 @@ export default function GameLayoutComponent(props) {
                         Click Here To Start Game
                     </button>
                     :
+                    //during setup, we show the ship picking tool
                     props.stage === 'setup' ?
                         <ShipPickerComponent
                             activePlayerId={props.activePlayerId}
@@ -32,7 +35,7 @@ export default function GameLayoutComponent(props) {
                             selectShip={props.selectShip}
                             selectedShip={props.selectedShip}
                         />
-                        :
+                        : //during the GAME and OVER stages we display the game logs
                         <BattleLogComponent
                             stage={props.stage}
                             activePlayerId={props.activePlayerId}

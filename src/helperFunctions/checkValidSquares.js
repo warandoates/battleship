@@ -1,3 +1,5 @@
+// Function that checks if a given position is valid when users are assigning their ships' positions
+
 export default function checkValidSquares(squareId, size, horizontal, newBoard) {
     if (horizontal) {
         if (squareId % 10 + size > 11 || squareId % 10 === 0) return false;

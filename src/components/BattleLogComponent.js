@@ -4,7 +4,6 @@ export default function BattleLogComponent(props) {
     function handleReset(){
         props.resetGame()
     }
-
     return (
         <div>
             {props.stage === "over"

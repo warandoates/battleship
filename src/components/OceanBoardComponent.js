@@ -19,7 +19,7 @@ export default class OceanBoardComponent extends Component {
             this.setState({lostShips: newProps.playerShips.filter(ship => ship.hits === ship.size)})
         }
         // Victory Condition
-        if (this.state.lostShips.length === 5 && newProps.stage === "game") {
+        if (newProps.playerShips.filter(ship => ship.hits === ship.size).length === 5 && newProps.stage === "game") {
             this.props.fleetLost(this.props.playerId)
         }
     }
@@ -68,8 +68,11 @@ export default class OceanBoardComponent extends Component {
                         <div>
                             <p className={"subtitleBelow"}>Ships I've Lost:</p>
                             {this.props.playerShips ?
-                                this.state.lostShips.map(ship =>
-                                    <div className="row graveyard">
+                                this.state.lostShips.map((ship, index) =>
+                                    <div
+                                        className="row graveyard"
+                                        key={index}
+                                    >
                                         <div className={'col s6'}>
                                             {ship.name}
                                         </div>

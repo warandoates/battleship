@@ -2,16 +2,16 @@ export default function sentenceBuilder(data, activePlayerId) {
     let positiveSlams = [
         "BOO-YA!",
         "WATCH OUT!",
-        "Now we're cooking with gas!!!",
-        "They could hear it the cheap seats!",
-        "That's how you GET. IT. DONE.",
+        "BAM!!!",
+        "ON TARGET!",
+        "GETTING. IT. DONE.",
     ];
     let negativeSlams = [
         "hit nothing but water",
-        "couldn't hit fish in a barrel",
-        "wishes they could take that one back",
-        "is slipping!",
-        "needs to go back to the drawing board",
+        "regrets that shot",
+        "should be ashamed",
+        "is slipping",
+        "needs to re-evaluate",
     ];
     if (data.contents === 'empty') {
         return `MISS! Player ${activePlayerId} ${negativeSlams[Math.floor(Math.random() * 5)]}!`
